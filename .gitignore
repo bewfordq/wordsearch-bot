@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+logs/
+config.json
+/screens/
+android/dist/
+# build output and machine-specific files anywhere under android/ (the stand-in app too)
+android/**/build/
+android/**/.gradle/
+android/**/local.properties
+android/*.log
+android/build.done

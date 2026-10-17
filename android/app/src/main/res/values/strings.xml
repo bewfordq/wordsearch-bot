@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tap_service_description">Lets Wordbot swipe words and tap buttons in the Word Search game while the bot plays. It only acts while you have started the bot.</string>
+</resources>

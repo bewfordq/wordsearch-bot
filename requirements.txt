@@ -1,0 +1,5 @@
+opencv-python-headless>=4.9
+numpy>=1.26
+pytesseract>=0.3.10
+av>=14          # decodes the scrcpy live stream; without it the bot uses adb screenshots
+pytest>=8.0

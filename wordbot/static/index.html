@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Search Bot</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">Word Search Bot</div>
+  <div class="pill" id="status">idle</div>
+  <div class="phase" id="phase">–</div>
+  <div class="spacer"></div>
+  <div class="dev" id="device">phone: –</div>
+</header>
+
+<main class="layout">
+  <!-- phone -->
+  <section class="card phone">
+    <div class="card-head">
+      <h2>Phone</h2>
+      <div class="seg" id="touchMode" title="What a click on the picture does">
+        <button data-mode="off" class="on">View</button>
+        <button data-mode="tap">Tap</button>
+        <button data-mode="swipe">Drag = swipe</button>
+      </div>
+    </div>
+    <div class="screen-wrap" id="screenWrap">
+      <img id="screen" alt="phone screen">
+      <canvas id="overlay"></canvas>
+      <div class="noframe" id="noframe">No picture yet. Press Connect.</div>
+    </div>
+    <label class="check small"><input type="checkbox" id="showOverlay" checked> Show grid and planned swipes on the picture</label>
+    <div class="btns">
+      <button data-cmd="connect">Connect</button>
+      <button data-cmd="launch">Open game</button>
+      <button data-cmd="back">Back</button>
+      <button data-cmd="home">Home</button>
+      <button data-cmd="screenshot">Save screenshot</button>
+      <button data-cmd="disconnect" class="ghost">Disconnect</button>
+    </div>
+  </section>
+
+  <!-- bot -->
+  <section class="col">
+    <div class="card">
+      <div class="card-head"><h2>Bot</h2></div>
+      <div class="controls">
+        <button class="big go" id="btnStart">Start</button>
+        <button class="big" id="btnPause">Pause</button>
+        <button class="big" id="btnStep" title="Do one action (one word, one tap), then pause">Step</button>
+        <button class="big stop" id="btnStop">Stop</button>
+      </div>
+      <div class="toggles">
+        <label class="check"><input type="checkbox" data-cfg="dry_run"> Dry run (read and solve, don't touch)</label>
+        <label class="check"><input type="checkbox" data-cfg="flow.auto_next"> Go to the next level by itself</label>
+        <label class="check"><input type="checkbox" data-cfg="verify.enabled"> Check and redo missed words</label>
+      </div>
+      <div class="btns">
+        <button data-cmd="read" title="Read the grid and word list on screen and plan the swipes, without swiping">Read screen</button>
+        <button data-cmd="solve" title="Read and swipe every word on the current level once">Solve this level</button>
+        <button data-cmd="classify" title="Say what screen the phone shows">What screen is this?</button>
+        <button data-cmd="tap_button" title="Tap the biggest green button on screen">Tap green button</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2 id="levelTitle">Level –</h2>
+        <div class="muted" id="levelInfo"></div>
+      </div>
+      <div class="puzzle">
+        <div>
+          <div class="grid" id="grid"></div>
+          <div class="hint">Click two letters to swipe between them. Double-click a letter to correct it.</div>
+        </div>
+        <div class="words" id="words"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Stats</h2><button class="ghost small-btn" data-cmd="reset_stats">Reset</button></div>
+      <div class="stats" id="stats"></div>
+      <table class="hist"><thead><tr><th>When</th><th>Level</th><th>Theme</th><th>Words</th><th>Time</th></tr></thead>
+        <tbody id="history"></tbody></table>
+    </div>
+  </section>
+
+  <!-- side -->
+  <section class="col">
+    <div class="card tabs-card">
+      <div class="tabs">
+        <button data-tab="log" class="on">Log</button>
+        <button data-tab="settings">Settings</button>
+        <button data-tab="letters">Letters</button>
+      </div>
+      <div class="tab" id="tab-log">
+        <div class="log-tools">
+          <label class="check small"><input type="checkbox" id="logInfo" checked> info</label>
+          <label class="check small"><input type="checkbox" id="logDebug"> guesses</label>
+          <label class="check small"><input type="checkbox" id="logAuto" checked> follow</label>
+          <button class="ghost small-btn" id="logClear">Clear view</button>
+        </div>
+        <div class="log" id="log"></div>
+      </div>
+      <div class="tab hidden" id="tab-settings">
+        <div id="settings"></div>
+        <div class="btns"><button class="ghost" id="cfgReset">Reset all settings to defaults</button></div>
+      </div>
+      <div class="tab hidden" id="tab-letters">
+        <p class="muted">Letter shapes the bot learned from solved words. Letters it hasn't learned yet are read with Tesseract.</p>
+        <div class="letters" id="letters"></div>
+        <div class="muted" id="tessCalls"></div>
+        <div class="btns"><button class="ghost" data-cmd="clear_templates">Forget all letter shapes</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
